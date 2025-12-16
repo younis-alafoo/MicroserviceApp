@@ -1,17 +1,15 @@
 import express from 'express';
+import carsController from '../controllers/carsController.js';
 
 const Router = express.Router();
 
 Router.route('/cars')
-  .get((req, res) => {
-    res.send(
-      '🤖 Cars Route with GET method - this endpoint will get all of the cars from the database'
-    );
-  })
-  .post((req, res) => {
-    res.send(
-      '🤖 Cars Route with POST method - this endpoint will create a new car in the database'
-    );
-  });
+  .get(carsController.getAllCars)
+  .post(carsController.createCar);
+
+Router.route('/cars/:id')
+  .get(carsController.getCarById)
+  .put(carsController.updateCarById)
+  .delete(carsController.deleteCarById);
 
 export default Router;
