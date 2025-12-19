@@ -41,6 +41,7 @@ docker run -p 3000:3000 \
 #### C. Verify the service
 curl http://localhost:3000/cars
 
+---
 
 ### 5. 📡 API Endpoints
 - GET /cars → Retrieve all cars
@@ -59,6 +60,7 @@ POST http://localhost:3000/cars
     "available": true
   }'
 
+---
 
 ### 6. 🛠️ Technologies Used
 - Node.js – JavaScript runtime for building scalable backend services
