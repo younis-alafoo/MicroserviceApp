@@ -27,7 +27,7 @@ const carSchema = Joi.object({
   // Rental price per day for the car (positive number).
   rent_price: Joi.number().positive().precision(3).required().messages({
       'number.base': "Car 'rent_price' must be a number.",
-      'number.positive': "Car 'rent_price' must be a positive number and allow decimals.",
+      'number.positive': "Car 'rent_price' must be a positive number and allow 3 decimals.",
       'any.required': "Car 'rent_price' is required."
     }), 
 
@@ -38,18 +38,10 @@ const carSchema = Joi.object({
   }),
 
 
-  // Auto-managed timestamps
-  created_at: Joi.date()
-    .iso()
-    .messages({
-      'date.base': "Car 'created_at' must be a valid ISO date string."
-    }),
+  // Auto-managed timestamps (set internally by controllers)
+  created_at: Joi.string().optional(),
+  updated_at: Joi.string().optional()
 
-  updated_at: Joi.date()
-    .iso()
-    .messages({
-      'date.base': "Car 'updated_at' must be a valid ISO date string."
-    })
 });
 
 export default carSchema;

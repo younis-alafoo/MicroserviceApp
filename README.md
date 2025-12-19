@@ -28,7 +28,7 @@ npm start
 
 ### 4. 🐳 Running with Docker
 #### A. Build the Docker image
-docker build -t car-image.
+docker build -t car-image .
 
 #### B. Run the container
 docker run -p 3000:3000 \

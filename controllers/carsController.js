@@ -33,11 +33,16 @@ async function getAllCars(req, res, next) {
   }
 }
 
+// function to get Bahrain time as a string
+function getBahrainTime() {
+  return new Date().toLocaleString('en-GB', { timeZone: 'Asia/Bahrain' });
+}
+
 // POST /cars -- Creates a new car entry after validating input.
 async function createCar(req, res, next) {
   try {
     const uuid = uuidv4();  // Generate unique ID for new car
-    const now = new Date().toISOString();
+    const now = getBahrainTime();
 
     req.body.id = uuid;
     req.body.created_at = now;
@@ -49,7 +54,7 @@ async function createCar(req, res, next) {
       res.status(400).json({ error: error.details[0].message });
       return;
     }
-
+    
     const { id, model_name, license_plate, rent_price, available, created_at, updated_at } = value;
 
     const params = {
@@ -100,7 +105,7 @@ async function getCarById(req, res, next) {
 async function updateCarById(req, res) {
   try {
     const carId = req.params.id;
-    const now = new Date().toISOString();
+    const now = getBahrainTime();
 
     req.body.id = carId;
     req.body.updated_at = now;
@@ -167,20 +172,31 @@ async function updateCarById(req, res) {
 }
 
 // DELETE /cars/:id -- Deletes a car by its ID.
-async function deleteCarById(req, res) {
+async function deleteCarById(req, res, next) {
   const carId = req.params.id;
   try {
-    const params = {
+    // Check if car exists
+    const getParams = {
       TableName: 'Cars',
       Key: { id: carId },
     };
-    const command = new DeleteCommand(params);
-    await database.send(command);
+    const getCommand = new GetCommand(getParams);
+    const result = await database.send(getCommand);
+
+    if (!result.Item) {
+      return res.status(404).json({ error: `No car found with id '${carId}'.` });
+    }
+
+    // Delete if exists
+    const deleteParams = { TableName: 'Cars', Key: { id: carId } };
+    const deleteCommand = new DeleteCommand(deleteParams);
+    await database.send(deleteCommand);
 
     res.status(200).json({
       message: `✅ Car with id '${carId}' deleted successfully`
-  });
+    });
   } catch (err) {
+    console.error("❌ Failed to delete car:", err);
     next(err);
   }
 }
