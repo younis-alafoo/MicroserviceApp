@@ -1,14 +1,24 @@
+// index.js
+// Entry point for the MicroserviceApp backend.
+// Load environment variables securely.
+// Initialize Express application.
+// Register global middleware and routes.
+// Start the server with error handling.
+
+
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config(); // Load environment variables from .env file
+
 import express from 'express';
 import Router from './views/router.js';
 
 const port = process.env.PORT;
 const app = express();
 
-app.use(express.json());
-app.use(Router);
+app.use(express.json());  // Middleware: parse JSON request bodies
+app.use(Router);          // Register application routes
 
+// Start server with error handling
 async function startServer() {
   try {
     app.listen(port, () => console.log(`🤖 Listening on Port: ${port}`));

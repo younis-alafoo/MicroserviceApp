@@ -1,3 +1,10 @@
+// services/database.js
+// DynamoDB DocumentClient setup
+// Load environment variables securely.
+// Initialize DynamoDB client with credentials and region.
+// Export DocumentClient for use in other modules.
+
+
 import dotenv from 'dotenv';
 dotenv.config();
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
@@ -12,6 +19,7 @@ const client = new DynamoDBClient({
   },
 });
 
+// Wrap client with DocumentClient for easier JSON handling
 const database = DynamoDBDocumentClient.from(client);
 
 export default database;
