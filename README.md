@@ -23,10 +23,27 @@ DYNAMODB_REGION=eu-north-1
 AWS_ACCESS_KEY_ID=access-key
 AWS_SECRET_ACCESS_KEY=secret-key
 
-### 3. Run the service locally
-npm start
+### 3. Configure AWS CLI (required for Terraform)
+Terraform uses AWS CLI credentials by default. Run:
+```bash
+aws configure
+```
+insert AWS Access Key ID, AWS Secret Access Key, and Default region name (eu-north-1)
 
-### 4. 🐳 Running with Docker
+### 4. Infrastructure with Terraform
+This project includes Terraform scripts to provision AWS resources. Terraform will use the AWS credentials configured via aws configure.
+
+#### A. Initialize Terraform: 
+terraform init
+#### B. Preview changes:
+terraform plan
+#### C. Apply changes: 
+terraform apply
+
+### 5. Run the service locally
+npm run dev
+
+### 6. 🐳 Running with Docker
 #### A. Build the Docker image
 docker build -t car-image .
 
@@ -43,7 +60,7 @@ curl http://localhost:3000/cars
 
 ---
 
-### 5. 📡 API Endpoints
+### 6. 📡 API Endpoints
 - GET /cars → Retrieve all cars
 - POST /cars → Create a new car
 - GET /cars/:id → Retrieve a car by ID
@@ -62,7 +79,7 @@ POST http://localhost:3000/cars
 
 ---
 
-### 6. 🛠️ Technologies Used
+### 7. 🛠️ Technologies Used
 - Node.js – JavaScript runtime for building scalable backend services
 - Express – Web framework for handling routes and middleware
 - @aws-sdk/client-dynamodb and @aws-sdk/lib-dynamodb: Toolkits for interacting with DynamoDB.
@@ -70,3 +87,4 @@ POST http://localhost:3000/cars
 - dotenv – Environment variable management
 - uuid – Unique ID generation for car records
 - Docker – Containerization for reproducible deployments
+- Terraform – Infrastructure as Code for AWS resource provisioning
