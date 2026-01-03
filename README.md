@@ -33,12 +33,18 @@ insert AWS Access Key ID, AWS Secret Access Key, and Default region name (eu-nor
 ### 4. Infrastructure with Terraform
 This project includes Terraform scripts to provision AWS resources. Terraform will use the AWS credentials configured via aws configure.
 
-#### A. Initialize Terraform: 
+#### A. Initialize Terraform:
+```bash
 terraform init
+```
 #### B. Preview changes:
+```bash
 terraform plan
-#### C. Apply changes: 
+```
+#### C. Apply changes:
+```bash
 terraform apply
+```
 
 ### 5. Run the service locally
 npm run dev
